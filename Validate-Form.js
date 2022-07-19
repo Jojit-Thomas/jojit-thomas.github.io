@@ -1,7 +1,12 @@
 $(document).ready(function () {
+  jQuery.validator.addMethod("lettersonly", function(value, element) {
+    return this.optional(element) || /^[a-z' ']+$/i.test(value);
+}, "Letters only please")
   $(".contact-forms").validate({
+    
     rules: {
       name: {
+        lettersonly: true,
         required: true,
         minlength: 4,
       },
@@ -51,6 +56,7 @@ function submit() {
       method: "POST",
       success: function (response) {
         alert("Form submitted successfully");
+        window.location.reload();
       },
       error: function (err) {
         alert("Something Error");
